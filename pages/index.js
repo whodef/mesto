@@ -1,53 +1,30 @@
-import Card from './Card.js'
-import FormValidator from './FormValidator.js'
-
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-
-// Всплывающее окно профайла
-const changeProfileOpenOverlayBtn = document.querySelector('#change-profile');
-const profileDescriptionOnPage = document.querySelector('.profile__description');
-const profileNameOnPage = document.querySelector('.profile__name');
-const changeProfileOverlay = document.querySelector('#change-profile-overlay');
-const changeProfileForm = changeProfileOverlay.querySelector('.overlay__form');
-const changeProfileFormNameInput = changeProfileOverlay.querySelector('.overlay__form-input_type_name');
-const changeProfileFormExtInput = changeProfileOverlay.querySelector('.overlay__form-input_type_ext');
-// Всплывающее окно карточки
-const addCardOpenOverlayBtn = document.querySelector('#add-new-card');
-const addCardOverlay = document.querySelector('#new-card-overlay');
-const addCardForm = addCardOverlay.querySelector('.overlay__form');
-const addCardFormNameInput = addCardOverlay.querySelector('.overlay__form-input_type_name');
-const addCardFormExtInput = addCardOverlay.querySelector('.overlay__form-input_type_ext');
-// Template для создания карточек
-const cardsContainer = document.querySelector('.card__list');
-const cardTemplate = document.querySelector('#card-template').content;
-const viewImageOverlay = document.querySelector('#image-overlay');
-const viewImageContentImage = viewImageOverlay.querySelector('.overlay__image');
-const viewImageContentCaption = viewImageOverlay.querySelector('.overlay__image-caption');
+import FormValidator from '../components/FormValidator.js';
+import Card from '../components/Card.js';
+import Section from "../components/Section.js";
+import Popup from "../components/Popup.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
+import {
+    initialCards,
+    changeProfileOpenOverlayBtn,
+    profileDescriptionOnPage,
+    profileNameOnPage,
+    changeProfileOverlay,
+    changeProfileForm,
+    changeProfileFormNameInput,
+    changeProfileFormExtInput,
+    addCardOpenOverlayBtn,
+    addCardOverlay,
+    addCardForm,
+    addCardFormNameInput,
+    addCardFormExtInput,
+    cardsContainer,
+    cardTemplate,
+    viewImageOverlay,
+    viewImageContentImage,
+    viewImageContentCaption,
+} from '../utils/constants.js';
 
 const forms = [
     {

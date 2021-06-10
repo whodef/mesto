@@ -7,7 +7,7 @@
     <meta name="description" content="level up your front-end skills, from zero to hero">
     <meta name="author" content="Tatiana">
     <title>Место.Россия</title>
-    <link rel="stylesheet" href="./pages/index.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body class="root">
 <div class="page">
@@ -17,11 +17,12 @@
 
     <main class="content">
         <section class="profile">
-            <img class="profile__image" src="./images/avatar.jpg" alt="Изображение Жака-Ива Кусто">
+            <img class="profile__image" src="./images/iv.jpeg" alt="Изображение Жака-Ива Кусто">
             <div class="profile__indication">
                 <div class="profile__caption">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
-                    <button class="profile__change-button" id="change-profile" type="button" aria-label="Изменить"></button>
+                    <button class="profile__change-button" id="change-profile" type="button"
+                            aria-label="Изменить"></button>
                 </div>
                 <p class="profile__description">Исследователь океана</p>
             </div>
@@ -36,10 +37,10 @@
     </main>
 
     <footer class="footer">
-        <p class="footer__copyright">&copy;2021  Mesto Russia</p>
+        <p class="footer__copyright">&copy;2021 Mesto Russia</p>
     </footer>
 
-<!-- Шаблон для отображения карточек .card__list --->
+    <!-- Шаблон для отображения карточек .card__list --->
     <template id="card-template">
         <li class="card__item">
             <img class="card__image" src="#" alt="Сгенерированное описание">
@@ -51,7 +52,7 @@
         </li>
     </template>
 
-<!-- Всплывающее окно для cards -->
+    <!-- Всплывающее окно для cards -->
     <div class="overlay" id="image-overlay">
         <figure class="overlay__image-container">
             <button class="overlay__close-button" type="button" aria-label="Закрыть"></button>
@@ -60,18 +61,22 @@
         </figure>
     </div>
 
-<!-- Всплывающее окно для изменений в профиле-->
+    <!-- Всплывающее окно для изменений в профиле-->
     <div class="overlay" id="change-profile-overlay">
         <fieldset class="overlay__container">
             <button class="overlay__close-button" type="button" aria-label="Закрыть"></button>
             <h2 class="overlay__title">Редактировать профиль</h2>
             <form class="overlay__form" action="#" name="overlay-form" novalidate>
                 <div class="overlay__form-input-set">
-                    <input class="overlay__form-input overlay__form-input_type_name" id="edit-name" type="text" name="input-name" placeholder="Имя" value="Жак-Ив Кусто" minlength="2" maxlength="30" required>
+                    <input class="overlay__form-input overlay__form-input_type_name" id="edit-name" type="text"
+                           name="input-name" placeholder="Имя" value="Жак-Ив Кусто" minlength="2" maxlength="30"
+                           required>
                     <span class="overlay__form-error overlay__form-error_visible" id="edit-name-error"></span>
                 </div>
                 <div class="overlay__form-input-set">
-                    <input class="overlay__form-input overlay__form-input_type_ext" id="edit-description" type="text" name="input-description" placeholder="Вид деятельности" value="Исследователь океана" minlength="5" maxlength="100" required>
+                    <input class="overlay__form-input overlay__form-input_type_ext" id="edit-description" type="text"
+                           name="input-description" placeholder="Вид деятельности" value="Исследователь океана"
+                           minlength="5" maxlength="100" required>
                     <span class="overlay__form-error overlay__form-error_visible" id="edit-description-error"></span>
                 </div>
                 <button class="overlay__save-button" type="submit">Сохранить</button>
@@ -79,18 +84,20 @@
         </fieldset>
     </div>
 
-<!-- Всплывающее окно для изменений для добавления карточек -->
+    <!-- Всплывающее окно для изменений для добавления карточек -->
     <div class="overlay" id="new-card-overlay">
         <fieldset class="overlay__container">
             <button class="overlay__close-button" type="button" aria-label="Закрыть"></button>
             <h2 class="overlay__title">Новое место</h2>
             <form class="overlay__form" action="#" name="overlay-form" novalidate>
                 <div class="overlay__form-input-set">
-                    <input class="overlay__form-input overlay__form-input_type_name" id="card-title" type="text" name="input-name" placeholder="Название" minlength="2" maxlength="50" required>
+                    <input class="overlay__form-input overlay__form-input_type_name" id="card-title" type="text"
+                           name="input-name" placeholder="Название" minlength="2" maxlength="50" required>
                     <span class="overlay__form-error overlay__form-error_visible" id="card-title-error"></span>
                 </div>
                 <div class="overlay__form-input-set">
-                    <input class="overlay__form-input overlay__form-input_type_ext" id="card-url" type="url" name="input-imageurl" placeholder="Ссылка на картинку" required>
+                    <input class="overlay__form-input overlay__form-input_type_ext" id="card-url" type="url"
+                           name="input-imageurl" placeholder="Ссылка на картинку" required>
                     <span class="overlay__form-error overlay__form-error_visible" id="card-url-error"></span>
                 </div>
                 <button class="overlay__save-button" type="submit" disabled>Создать</button>
@@ -98,9 +105,10 @@
         </fieldset>
     </div>
 
-    <script type="module" src="./scripts/Card.js"></script>
-    <script type="module" src="./scripts/FormValidator.js"></script>
-    <script type="module" src="./scripts/index.js"></script>
+    <script type="module" src="components/Card.js"></script>
+    <script type="module" src="components/FormValidator.js"></script>
+    <script type="module" src="utils/constants.js"></script>
+    <script type="module" src="pages/index.js"></script>
 </div>
 </body>
 </html>
