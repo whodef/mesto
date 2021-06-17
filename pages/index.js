@@ -1,7 +1,6 @@
 import FormValidator from '../components/FormValidator.js';
 import Card from '../components/Card.js';
 import Section from "../components/Section.js";
-import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
@@ -25,6 +24,27 @@ import {
     viewImageContentImage,
     viewImageContentCaption,
 } from '../utils/constants.js';
+
+// // Добавление карточек в разметку
+// const createCard = new Section({
+//         data: initialCards,
+//         renderer: (name, link) => {
+//             const card = new Card(name, link, cardTemplate, cardImgClickListener); // переделать
+//             const cardElement = card.constructCard();
+//             createCard.addItem(cardElement);
+//         }
+//     },
+//     cardsContainer
+// );
+// createCard.rendererItem();
+//
+//
+// // Открытие окна карточки
+// const popupWithImage = new PopupWithImage(viewImageOverlay);
+// popupWithImage.setEventListeners();
+//
+
+
 
 const forms = [
     {
@@ -113,8 +133,8 @@ initialCards.forEach((item) => {
     cardsContainer.append(createCard(item.name, item.link));
 });
 
+// Валидация форм
 forms.forEach(item => {
-
     formValidators[item.name] = new FormValidator(
         item.form,
         {
