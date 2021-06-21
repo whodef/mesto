@@ -9,7 +9,6 @@ export default class PopupWithImage extends Popup {
     }
 
     open(name, link) {
-        // заполнение данными всплывающего окна с картинкой при его открытии
         this._popupImage.src = link;
         this._popupImage.alt = name;
         this._popupCaption.textContent = this._popupImage.alt;

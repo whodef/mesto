@@ -10,7 +10,7 @@ export default class Section {
         this._containerSelector.innerHTML = '';
     }
 
-    // Метод отвечает за отрисовку всех элементов и добавляет его в контейнер
+    // Метод отвечает за render всех элементов и добавляет его в контейнер
     addItem(item, isPrepend) {
         isPrepend ? this._items.unshift(item) : this._items.push(item);
     }

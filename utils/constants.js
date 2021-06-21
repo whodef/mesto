@@ -25,23 +25,18 @@ export const initialCards = [
     }
 ];
 
-// Всплывающее окно профайла
+// Overlay
+export const cardsContainer = document.querySelector('.overlay');
+export const cardTemplate = document.querySelector('#card-template').content;
+
+// Профиль
 export const changeProfileOpenOverlayBtn = document.querySelector('#change-profile');
 export const profileDescriptionOnPage = document.querySelector('.profile__description');
 export const profileNameOnPage = document.querySelector('.profile__name');
 export const changeProfileOverlay = document.querySelector('#change-profile-overlay');
 export const changeProfileForm = changeProfileOverlay.querySelector('.overlay__form');
-// const changeProfileFormNameInput = changeProfileOverlay.querySelector('.overlay__form-input_type_name');
-// const changeProfileFormExtInput = changeProfileOverlay.querySelector('.overlay__form-input_type_ext');
-// Всплывающее окно карточки
+
+// Карточки
 export const addCardOpenOverlayBtn = document.querySelector('#add-new-card');
 export const addCardOverlay = document.querySelector('#new-card-overlay');
 export const addCardForm = addCardOverlay.querySelector('.overlay__form');
-// const addCardFormNameInput = addCardOverlay.querySelector('.overlay__form-input_type_name');
-// const addCardFormExtInput = addCardOverlay.querySelector('.overlay__form-input_type_ext');
-// Template для создания карточек
-export const cardsContainer = document.querySelector('.overlay');
-export const cardTemplate = document.querySelector('#card-template').content;
-// const viewImageOverlay = document.querySelector('#image-overlay');
-// const viewImageContentImage = viewImageOverlay.querySelector('.overlay__image');
-// const viewImageContentCaption = viewImageOverlay.querySelector('.overlay__image-caption');

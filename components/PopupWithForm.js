@@ -24,6 +24,10 @@ export default class PopupWithForm extends Popup {
         this._submitHandler(this._getInputValues());
     }
 
+    reset() {
+        this._resetHandler();
+    }
+
     close() {
         const inputList = Array.from(this._popupSelector.querySelectorAll('.overlay__form-input'));
 
@@ -36,9 +40,5 @@ export default class PopupWithForm extends Popup {
     setEventListeners() {
         super.setEventListeners();
         this._popupSelector.addEventListener('submit', (e) => this._formSubmitHandler(e));
-    }
-
-    reset() {
-        this._resetHandler();
     }
 }

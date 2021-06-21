@@ -14,9 +14,25 @@ import {
     addCardOpenOverlayBtn,
     addCardOverlay,
     addCardForm,
-    cardTemplate, changeProfileOverlay,
+    cardTemplate,
+    changeProfileOverlay
 } from '../utils/constants.js';
 
+// Для валидации форм
+const forms = [
+    {
+        name: 'profileForm',
+        form: changeProfileForm
+    },
+    {
+        name: 'addCardForm',
+        form: addCardForm
+    }
+];
+
+const formValidators = {};
+
+// Создание карточек
 const sectionInitialCards = new Section({
     items: initialCards,
     renderer: (item) => {
@@ -34,9 +50,13 @@ const sectionInitialCards = new Section({
 
 sectionInitialCards.render();
 
+// Добавление карточки
 const overlayAddCard = new PopupWithForm(addCardOverlay, {
     submitHandler: (input) => {
-        sectionInitialCards.addItem({name: input['input-name'], link: input['input-imageurl']}, true);
+        sectionInitialCards.addItem({
+            name: input['input-name'],
+            link: input['input-imageurl']
+        }, true);
         sectionInitialCards.render();
         overlayAddCard.close();
     },
@@ -78,95 +98,6 @@ overlayProfile.setEventListeners();
 addCardOpenOverlayBtn.addEventListener('click', openOverlayAddCard);
 
 changeProfileOpenOverlayBtn.addEventListener('click', openOverlayEditProfile);
-
-// Открытие-закрытие всплывающего окна
-// const openOverlay = ((elem) => {
-//     elem.classList.add('overlay_open');
-//     elem.addEventListener('click', closeOverlayClickListener);
-//     document.addEventListener('keyup', closeOverlayEscListener);
-// });
-//
-// const closeOverlay = ((elem) => {
-//     elem.classList.remove('overlay_animation-helper', 'overlay_open');
-//     elem.removeEventListener('click', closeOverlayClickListener);
-//     document.removeEventListener('keyup', closeOverlayEscListener);
-// });
-//
-// const closeOverlayClickListener = ((e) => {
-//     const elem = e.target;
-//     if (elem.classList.contains('overlay') || elem.classList.contains('overlay__close-button')) {
-//         const currentOpenOverlay = document.querySelector('.overlay_open');
-//         closeOverlay(currentOpenOverlay);
-//     }
-// });
-//
-// const closeOverlayEscListener = ((e) => {
-//     if (e.key === "Escape") {
-//         const currentOpenOverlay = document.querySelector('.overlay_open');
-//         closeOverlay(currentOpenOverlay);
-//     }
-// });
-// -------------------------------------
-//
-// const cardImgClickListener = ((name, link) => {
-//     viewImageContentImage.src = link;
-//     viewImageContentImage.alt = name;
-//     viewImageContentCaption.textContent = viewImageContentImage.alt;
-//     openOverlay(viewImageOverlay);
-// });
-//
-// const changeProfileFormSubmitHandler = ((e) => {
-//     e.preventDefault();
-//     profileNameOnPage.textContent = changeProfileFormNameInput.value;
-//     profileDescriptionOnPage.textContent = changeProfileFormExtInput.value;
-//     closeOverlay(changeProfileOverlay);
-// });
-//
-// const createCard = (name, link) => {
-//     const card = new Card(name, link, cardTemplate, cardImgClickListener);
-//     return card.constructCard();
-// }
-//
-// const addCardFormSubmitHandler = ((e) => {
-//     e.preventDefault();
-//     cardsContainer.prepend(createCard(addCardFormNameInput.value, addCardFormExtInput.value));
-//     closeOverlay(addCardOverlay);
-// });
-//
-// changeProfileOpenOverlayBtn.addEventListener('click', () => {
-//     formValidators['profileForm'].cleanFormValidation();
-//     openOverlay(changeProfileOverlay);
-//     changeProfileFormNameInput.value = profileNameOnPage.textContent;
-//     changeProfileFormExtInput.value = profileDescriptionOnPage.textContent;
-// });
-//
-// addCardOpenOverlayBtn.addEventListener('click', () => {
-//     formValidators['addCardForm'].cleanFormValidation();
-//     openOverlay(addCardOverlay);
-// });
-//
-// changeProfileOverlay.querySelector('.overlay__form').addEventListener('submit', changeProfileFormSubmitHandler);
-//
-// addCardOverlay.querySelector('.overlay__form').addEventListener('submit', addCardFormSubmitHandler);
-//
-// initialCards.forEach((item) => {
-//     cardsContainer.append(createCard(item.name, item.link));
-// });
-
-
-// ----- НЕ ТРОЖЬ, РАБОТАЕТ -----
-const forms = [
-    {
-        name: 'profileForm',
-        form: changeProfileForm
-    },
-    {
-        name: 'addCardForm',
-        form: addCardForm
-    }
-];
-
-const formValidators = {};
 
 // Валидация форм
 forms.forEach(item => {
