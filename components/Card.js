@@ -4,23 +4,24 @@ export default class Card {
     _cardWrapper;
     _handleCardClick;
 
-    constructor(name, link, cardTemplate, handleCardClick) {
+    constructor(name, link, cardTemplate, {handleCardClick}) {
         this._name = name;
         this._link = link;
         this._cardWrapper = cardTemplate.querySelector('.card__item').cloneNode(true);
         this._handleCardClick = handleCardClick;
     }
 
-    _handleLike = () => {
+    _handleLike() {
         const likeButton = this._cardWrapper.querySelector('.card__like-button');
         likeButton.classList.toggle('card__like-button_active');
     }
 
-    _handleRemove = () => {
+    _handleRemove() {
+        console.log(this._cardWrapper);
         this._cardWrapper.remove();
     }
 
-    constructCard = () => {
+    constructCard() {
         const cardImage = this._cardWrapper.querySelector('.card__image');
         const likeButton = this._cardWrapper.querySelector('.card__like-button');
         const deleteButton = this._cardWrapper.querySelector('.card__delete-button');
@@ -30,9 +31,9 @@ export default class Card {
         cardImage.src = this._link;
         cardImage.alt = this._name;
 
-        likeButton.addEventListener('click', this._handleLike);
+        likeButton.addEventListener('click', () => this._handleLike());
         cardImage.addEventListener('click', () => this._handleCardClick(this._name, this._link));
-        deleteButton.addEventListener('click', this._handleRemove);
+        deleteButton.addEventListener('click', () => this._handleRemove());
 
         return this._cardWrapper;
     }

@@ -1,21 +1,27 @@
 export default class UserInfo {
+    _nameSelector;
+    _captionSelector;
+    _captionInput;
+    _nameInput;
+    _formEditProfile;
 
-    constructor(name, info) {
-        this._nameSelector = name;
-        this._infoSelector = info;
+    constructor({ nameSelector, captionSelector }) {
+        this._nameSelector = nameSelector;
+        this._captionSelector = captionSelector;
     }
 
-    getUserInfo = (data) => {
-        let userInfo;
-        userInfo = {
-            name: data.name,
-            info: data.info,
-        };
-        return userInfo;
+    getUserInfo() {
+        this._formEditProfile = document.querySelector('.overlay__form');
+        this._nameInput = this._formEditProfile.querySelector('#edit-name');
+        this._captionInput = this._formEditProfile.querySelector('#edit-description');
+
+
+        this._nameInput.value = this._nameSelector.textContent;
+        this._captionInput.value = this._captionSelector.textContent;
     }
 
-    setUserInfo = (data) => {
-        this._nameSelector.textContent = data.name;
-        this._infoSelector.textContent = data.info;
+    setUserInfo(elem) {
+        this._nameSelector.textContent = elem['input-name'];
+        this._captionSelector.textContent = elem['input-description'];
     }
 }

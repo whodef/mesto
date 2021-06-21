@@ -31,17 +31,17 @@ export const profileDescriptionOnPage = document.querySelector('.profile__descri
 export const profileNameOnPage = document.querySelector('.profile__name');
 export const changeProfileOverlay = document.querySelector('#change-profile-overlay');
 export const changeProfileForm = changeProfileOverlay.querySelector('.overlay__form');
-export const changeProfileFormNameInput = changeProfileOverlay.querySelector('.overlay__form-input_type_name');
-export const changeProfileFormExtInput = changeProfileOverlay.querySelector('.overlay__form-input_type_ext');
+// const changeProfileFormNameInput = changeProfileOverlay.querySelector('.overlay__form-input_type_name');
+// const changeProfileFormExtInput = changeProfileOverlay.querySelector('.overlay__form-input_type_ext');
 // Всплывающее окно карточки
 export const addCardOpenOverlayBtn = document.querySelector('#add-new-card');
 export const addCardOverlay = document.querySelector('#new-card-overlay');
 export const addCardForm = addCardOverlay.querySelector('.overlay__form');
-export const addCardFormNameInput = addCardOverlay.querySelector('.overlay__form-input_type_name');
-export const addCardFormExtInput = addCardOverlay.querySelector('.overlay__form-input_type_ext');
+// const addCardFormNameInput = addCardOverlay.querySelector('.overlay__form-input_type_name');
+// const addCardFormExtInput = addCardOverlay.querySelector('.overlay__form-input_type_ext');
 // Template для создания карточек
-export const cardsContainer = document.querySelector('.card__list');
+export const cardsContainer = document.querySelector('.overlay');
 export const cardTemplate = document.querySelector('#card-template').content;
-export const viewImageOverlay = document.querySelector('#image-overlay');
-export const viewImageContentImage = viewImageOverlay.querySelector('.overlay__image');
-export const viewImageContentCaption = viewImageOverlay.querySelector('.overlay__image-caption');
+// const viewImageOverlay = document.querySelector('#image-overlay');
+// const viewImageContentImage = viewImageOverlay.querySelector('.overlay__image');
+// const viewImageContentCaption = viewImageOverlay.querySelector('.overlay__image-caption');

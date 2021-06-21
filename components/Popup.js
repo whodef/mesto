@@ -5,34 +5,33 @@ export default class Popup {
         this._handleEscClose = this._handleEscClose.bind(this);
     }
 
-    _handleEscClose = (e) => {
+    _handleEscClose(e) {
         if (e.key === 'Escape') {
             this.close();
         }
     }
 
-    _handleOverlayClose = (e) => {
+    _handleOverlayClose(e) {
         if (e.target === e.currentTarget) {
             this.close();
         }
     }
 
-    open = () => {
+    open() {
         this._popupSelector.classList.add('overlay_open');
         //this._popupSelector.addEventListener('click', this._handleOverlayClose);
-        document.addEventListener('keyup', this._handleEscClose);
+        document.addEventListener('keyup', (e) =>  this._handleEscClose(e));
     }
 
-    close = () => {
+    close() {
         this._popupSelector.classList.remove('overlay_open');
         this._popupSelector.removeEventListener('click', this._handleOverlayClose);
         document.removeEventListener('keyup', this._handleEscClose);
     }
 
-    setEventListeners = () => {
+    setEventListeners() {
         this._closeButton = this._popupSelector.querySelector('.overlay__close-button');
-
         this._closeButton.addEventListener('click', () => this.close());
-        this._popupSelector.addEventListener('mousedown', () => this._handleOverlayClose());
+        this._popupSelector.addEventListener('mousedown', (e) => this._handleOverlayClose(e));
     }
 }
