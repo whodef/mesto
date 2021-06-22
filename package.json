@@ -1,17 +1,16 @@
 {
-  "name": "my-webpack-project",
+  "name": "mesto",
   "version": "1.0.0",
   "description": "Информативная страница содержит профиль, который можно динамически изменять",
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && webpack --mode=production",
     "dev": "webpack serve",
-    "deploy": "gh-pages -d dist",
     "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/whodef/mesto-main.git"
+    "url": "git+https://github.com/whodef/mesto.git"
   },
   "author": "whodef",
   "license": "ISC",
