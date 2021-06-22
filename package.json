@@ -16,9 +16,9 @@
   "author": "whodef",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/whodef/mesto-main/issues"
+    "url": "https://github.com/whodef/mesto/issues"
   },
-  "homepage": "https://github.com/whodef/mesto-main#readme",
+  "homepage": "https://github.com/whodef/mesto#readme",
   "devDependencies": {
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
