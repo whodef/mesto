@@ -13,4 +13,4 @@
 * JavaScript
   * Vanilla JS ✨
 
-### Ссылка на готовый проект [МЕСТО](https://whodef.github.io/mesto-main/)
+### Ссылка на готовый проект [МЕСТО](https://whodef.github.io/mesto/)
