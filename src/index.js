@@ -1,9 +1,10 @@
-import FormValidator from '../components/FormValidator.js';
-import Card from '../components/Card.js';
-import Section from "../components/Section.js";
-import PopupWithImage from "../components/PopupWithImage.js";
-import PopupWithForm from "../components/PopupWithForm.js";
-import UserInfo from "../components/UserInfo.js";
+import './pages/index.css';
+import FormValidator from './components/FormValidator.js';
+import Card from './components/Card.js';
+import Section from "./components/Section.js";
+import PopupWithImage from "./components/PopupWithImage.js";
+import PopupWithForm from "./components/PopupWithForm.js";
+import UserInfo from "./components/UserInfo.js";
 import {
     initialCards,
     cardsContainer,
@@ -16,7 +17,7 @@ import {
     addCardForm,
     cardTemplate,
     changeProfileOverlay
-} from '../utils/constants.js';
+} from './utils/constants.js';
 
 // Для валидации форм
 const forms = [

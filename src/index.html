@@ -7,17 +7,17 @@
     <meta name="description" content="level up your front-end skills, from zero to hero">
     <meta name="author" content="Tatiana">
     <title>Место.Россия</title>
-    <link rel="stylesheet" href="pages/index.css">
+<!--    <link rel="stylesheet" href="pages/index.css">-->
 </head>
 <body class="root">
 <div class="page">
     <header class="header">
-        <img class="header__logo" src="./images/logo.svg" alt="Mesto Russia">
+        <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Mesto Russia">
     </header>
 
     <main class="content">
         <section class="profile">
-            <img class="profile__image" src="./images/iv.jpeg" alt="Изображение Жака-Ива Кусто">
+            <img class="profile__image" src="<%=require('./images/avatar.jpg')%>" alt="Изображение Жака-Ива Кусто">
             <div class="profile__indication">
                 <div class="profile__caption">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -105,10 +105,10 @@
         </fieldset>
     </div>
 
-    <script type="module" src="components/Card.js"></script>
-    <script type="module" src="components/FormValidator.js"></script>
-    <script type="module" src="utils/constants.js"></script>
-    <script type="module" src="pages/index.js"></script>
+<!--    <script type="module" src="components/Card.js"></script>-->
+<!--    <script type="module" src="components/FormValidator.js"></script>-->
+<!--    <script type="module" src="utils/constants.js"></script>-->
+<!--    <script type="module" src="index.js"></script>-->
 </div>
 </body>
 </html>

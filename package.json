@@ -1,0 +1,44 @@
+{
+  "name": "my-webpack-project",
+  "version": "1.0.0",
+  "description": "Информативная страница содержит профиль, который можно динамически изменять",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf dist && webpack --mode=production",
+    "dev": "webpack serve",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whodef/mesto-main.git"
+  },
+  "author": "whodef",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/whodef/mesto-main/issues"
+  },
+  "homepage": "https://github.com/whodef/mesto-main#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "@webpack-cli/generators": "^1.1.0",
+    "autoprefixer": "^10.2.6",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "css-loader": "^5.2.6",
+    "cssnano": "^5.0.6",
+    "gh-pages": "^3.2.3",
+    "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.6.0",
+    "postcss-loader": "^6.1.0",
+    "prettier": "^2.3.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.40.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.1"
+  },
+  "dependencies": {
+    "core-js": "^3.15.0",
+    "rimraf": "^3.0.2"
+  }
+}
