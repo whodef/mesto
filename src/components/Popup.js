@@ -1,7 +1,15 @@
+import { overlayConfig } from "../utils/constants.js";
+
 export default class Popup {
+    _overlay;
+    _openedClass;
+    _closeButton;
 
     constructor(popupSelector) {
-        this._popupSelector = popupSelector;
+        const { overlayOpened, overlayCloseButton } = overlayConfig;
+        this._overlay = document.querySelector(popupSelector);
+        this._openedClass = overlayOpened;
+        this._closeButton = this._overlay.querySelector(overlayCloseButton);
         this._handleEscClose = this._handleEscClose.bind(this);
     }
 
@@ -18,20 +26,17 @@ export default class Popup {
     }
 
     open() {
-        this._popupSelector.classList.add('overlay_open');
-        //this._popupSelector.addEventListener('click', this._handleOverlayClose);
-        document.addEventListener('keyup', (e) =>  this._handleEscClose(e));
+        document.addEventListener('keyup', this._handleEscClose);
+        this._overlay.classList.add(this._openedClass);
     }
 
     close() {
-        this._popupSelector.classList.remove('overlay_open');
-        this._popupSelector.removeEventListener('click', this._handleOverlayClose);
         document.removeEventListener('keyup', this._handleEscClose);
+        this._overlay.classList.remove(this._openedClass);
     }
 
     setEventListeners() {
-        this._closeButton = this._popupSelector.querySelector('.overlay__close-button');
         this._closeButton.addEventListener('click', () => this.close());
-        this._popupSelector.addEventListener('mousedown', (e) => this._handleOverlayClose(e));
+        this._overlay.addEventListener('mousedown', (e) => this._handleOverlayClose(e));
     }
 }

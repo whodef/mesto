@@ -4,7 +4,7 @@
   "description": "Информативная страница содержит профиль, который можно динамически изменять",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && webpack --mode=production",
+    "build": "webpack --mode=production",
     "dev": "webpack serve",
     "deploy": "gh-pages -d dist",
     "watch": "webpack --watch"

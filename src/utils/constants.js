@@ -25,18 +25,53 @@ export const initialCards = [
     }
 ];
 
-// Overlay
-export const cardsContainer = document.querySelector('.overlay');
-export const cardTemplate = document.querySelector('#card-template').content;
+export const overlayConfig = {
+    overlayOpened: 'overlay_open',
+    overlayCloseButton: '.overlay__close-button',
+}
 
-// Профиль
-export const changeProfileOpenOverlayBtn = document.querySelector('#change-profile');
-export const profileDescriptionOnPage = document.querySelector('.profile__description');
-export const profileNameOnPage = document.querySelector('.profile__name');
-export const changeProfileOverlay = document.querySelector('#change-profile-overlay');
-export const changeProfileForm = changeProfileOverlay.querySelector('.overlay__form');
+export const cardConfig = {
+    cardTemplate: '#card-template',
+    cardListSection: '.card__list',
+    cardListItem: '.card__item',
+    cardTitle: '.card__description-title',
+    cardImage: '.card__image',
+    cardRemoveButton: '.card__delete-button',
+    cardLikeItem: '.card__like-button',
+    cardActiveLikeItem: 'card__like-button_active'
+};
 
-// Карточки
-export const addCardOpenOverlayBtn = document.querySelector('#add-new-card');
-export const addCardOverlay = document.querySelector('#new-card-overlay');
-export const addCardForm = addCardOverlay.querySelector('.overlay__form');
+export const newCardPopupConfig = {
+    newCardOverlaySelector: '#new-card-overlay',
+    newCardForm: document.querySelector('.overlay__form[name = overlay-form-card]')
+}
+
+export const overlayWithImageConfig = {
+    overlayImageSelector: '#image-overlay',
+    imageOverlay: '.overlay__image',
+    imageCaption: '.overlay__image-caption',
+}
+// переделать
+export const formConfig = {
+    formSelector: '.overlay__form',
+    inputSelector: '.overlay__form-input',
+    buttonSelector: '.overlay__save-button',
+    buttonMode: '.overlay__save-button',
+    inputErrorMode: 'overlay__form-input_set',
+    errorMode: 'overlay__form-error_visible'
+};
+
+export const profilePopupConfig = {
+    profileOverlaySelector: '#change-profile-overlay',
+    profileForm: document.querySelector('.overlay__form[name = overlay-form-profile]'),
+    userNameInput: document.querySelector('.overlay__form-input[name = input-name-profile]'),
+    userAboutInput: document.querySelector('.overlay__form-input[name = input-description-profile]'),
+}
+
+export const profileConfig = {
+    userName: '.profile__name',
+    userAbout: '.profile__description',
+}
+
+export const changeProfileButton = document.querySelector('.profile__change-button');
+export const addCardButton = document.querySelector('.profile__add-button');

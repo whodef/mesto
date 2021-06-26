@@ -12,14 +12,14 @@ export default class FormValidator {
     }
 
     _showInputError(inputElement, errorMessage) {
-        inputElement.classList.add('overlay__form-input_state');
+        inputElement.classList.add(this._selectorConfig.inputErrorMode);
         const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
         errorElement.textContent = errorMessage;
         errorElement.classList.add(this._selectorConfig.errorMode);
     }
 
     _hideInputError(inputElement) {
-        inputElement.classList.remove('overlay__form-input_state');
+        inputElement.classList.remove(this._selectorConfig.inputErrorMode);
         const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
         errorElement.classList.remove(this._selectorConfig.inputErrorMode);
         errorElement.classList.remove(this._selectorConfig.errorMode);

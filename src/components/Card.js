@@ -1,40 +1,67 @@
+import {cardConfig} from "../utils/constants.js";
+
+// Танцы с бубном
 export default class Card {
     _name;
     _link;
     _cardWrapper;
     _handleCardClick;
+    _likeButton;
+    _item;
+    _cardImage;
 
-    constructor(name, link, cardTemplate, {handleCardClick}) {
-        this._name = name;
-        this._link = link;
-        this._cardWrapper = cardTemplate.querySelector('.card__item').cloneNode(true);
+    constructor(data, cardTemplate, handleCardClick) {
+        this._name = data.name;
+        this._link = data.link;
+        this._cardWrapper = cardTemplate;
         this._handleCardClick = handleCardClick;
     }
 
-    _handleLike() {
-        const likeButton = this._cardWrapper.querySelector('.card__like-button');
-        likeButton.classList.toggle('card__like-button_active');
+    _getTemplate = () => {
+        const {cardListItem} = cardConfig;
+        return document.querySelector(this._cardWrapper).content.querySelector(cardListItem).cloneNode(true);
     }
 
-    _handleRemove() {
-        console.log(this._cardWrapper);
-        this._cardWrapper.remove();
+    _handleOnClick = () => {
+        const card = {
+            alt: this._name,
+            caption: this._name,
+            link: this._link
+        }
+        this._handleCardClick(card);
     }
 
-    constructCard() {
-        const cardImage = this._cardWrapper.querySelector('.card__image');
-        const likeButton = this._cardWrapper.querySelector('.card__like-button');
-        const deleteButton = this._cardWrapper.querySelector('.card__delete-button');
+    _handleLike = () => {
+        const {cardActiveLikeItem} = cardConfig;
+        this._likeButton.classList.toggle(cardActiveLikeItem);
+    }
 
-        this._cardWrapper.querySelector('.card__description-title').textContent = this._name;
+    _handleRemove = () => {
+        this._item.remove();
+    }
 
-        cardImage.src = this._link;
-        cardImage.alt = this._name;
+    _setEventListeners = () => {
+        const {cardRemoveButton, cardLikeItem} = cardConfig;
+        this._item.querySelector(cardRemoveButton).addEventListener('click', this._handleRemove);
 
-        likeButton.addEventListener('click', () => this._handleLike());
-        cardImage.addEventListener('click', () => this._handleCardClick(this._name, this._link));
-        deleteButton.addEventListener('click', () => this._handleRemove());
+        this._likeButton = this._item.querySelector(cardLikeItem);
 
-        return this._cardWrapper;
+        this._likeButton.addEventListener('click', this._handleLike);
+        this._cardImage.addEventListener('click', this._handleOnClick);
+    }
+
+    constructCard = () => {
+        const {cardImage, cardTitle} = cardConfig;
+
+        this._item = this._getTemplate();
+        this._cardImage = this._item.querySelector(cardImage);
+
+        this._cardImage.src = this._link;
+        this._cardImage.alt = this._name;
+        this._item.querySelector(cardTitle).textContent = this._name;
+
+        this._setEventListeners();
+
+        return this._item;
     }
 }
