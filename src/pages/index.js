@@ -22,13 +22,18 @@ const formValidators = {};
 const {overlayImageSelector} = overlayWithImageConfig;
 const imagePopup = new PopupWithImage(overlayImageSelector);
 
+// Функция создания карточки
+const createCard = (data) => {
+    const card = new Card(data, cardTemplate, item => imagePopup.open(item));
+    return card.constructCard();
+}
+
 // Отрисовка списка карточек
 const {cardTemplate, cardListSection} = cardConfig;
 const cardList = new Section({
     items: initialCards,
     renderer: (item) => {
-        const card = new Card(item, cardTemplate, item => imagePopup.open(item));
-        const cardElement = card.constructCard();
+        const cardElement = createCard(item);
         cardList.addItem(cardElement);
     }
 }, cardListSection);
@@ -42,9 +47,7 @@ const newCardPopup = new PopupWithForm(newCardOverlaySelector, (inputValues) => 
         name: inputValues['input-name-card'],
         link: inputValues['input-image-url']
     };
-    const card = new Card(data, cardTemplate, item => imagePopup.open(item));
-
-    cardList.addItem(card.constructCard());
+    cardList.addItem(createCard(data));
     newCardPopup.close();
 });
 
@@ -73,10 +76,6 @@ formSelector.forEach(item => {
 changeProfileButton.addEventListener('click', () => {
     const {name, about} = userInfo.getUserInfo();
     const {userNameInput, userAboutInput} = profilePopupConfig;
-
-    // Перестало работать
-    //userNameInput.value = name;
-    //userAboutInput.value = about;
 
     userNameInput.setAttribute('value', name);
     userAboutInput.setAttribute('value', about);

@@ -1,6 +1,5 @@
 import {cardConfig} from "../utils/constants.js";
 
-// Танцы с бубном
 export default class Card {
     _name;
     _link;
