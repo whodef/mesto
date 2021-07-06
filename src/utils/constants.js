@@ -51,7 +51,7 @@ export const overlayWithImageConfig = {
     imageOverlay: '.overlay__image',
     imageCaption: '.overlay__image-caption',
 }
-// переделать
+
 export const formConfig = {
     formSelector: '.overlay__form',
     inputSelector: '.overlay__form-input',
@@ -71,6 +71,7 @@ export const profilePopupConfig = {
 export const profileConfig = {
     userName: '.profile__name',
     userAbout: '.profile__description',
+    userAvatar: '.profile__image'
 }
 
 export const changeProfileButton = document.querySelector('.profile__change-button');

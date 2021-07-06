@@ -2,14 +2,15 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    display: flex;
-    justify-self: flex-start;
-    flex-direction: row;
+    display: block;
+    -o-object-fit: cover;
+    object-fit: cover;
+    transition: opacity .2s ease-in;
 }
 
-@media screen and (max-width: 660px) {
-    .profile__image {
-        margin: 30px auto 0;
-        justify-items: center;
-    }
-}
+/*@media screen and (max-width: 660px) {*/
+/*    .profile__image {*/
+/*        margin: 30px auto 0;*/
+/*        justify-items: center;*/
+/*    }*/
+/*}*/

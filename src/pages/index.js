@@ -1,9 +1,11 @@
 import './index.css';
+import Api from '../components/Api.js'
 import FormValidator from '../components/FormValidator.js';
 import Card from '../components/Card.js';
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithSubmit from "../components/PopupWithSubmit.js"
 import UserInfo from "../components/UserInfo.js";
 import {
     formConfig,
@@ -16,6 +18,15 @@ import {
     changeProfileButton,
     addCardButton
 } from '../utils/constants.js';
+
+const api = new Api({
+    url: 'https://mesto.nomoreparties.co/v1/cohort-25',
+    headers: {
+        authorization: '8e17de69-5c22-4aaf-b9e8-673eda086f85',
+        'Content-Type': 'application/json'
+    },
+});
+
 
 const formValidators = {};
 
@@ -55,7 +66,10 @@ const newCardPopup = new PopupWithForm(newCardOverlaySelector, (inputValues) => 
 const {userName, userAbout} = profileConfig;
 const userInfo = new UserInfo(userName, userAbout);
 
-// Всплывающее окно Профиля
+// Колбэк функция обновления аватара
+
+
+// Всплывающее окно редактирования профиля
 const {profileOverlaySelector} = profilePopupConfig;
 const profilePopup = new PopupWithForm(profileOverlaySelector, (inputValues) => {
     const data = {

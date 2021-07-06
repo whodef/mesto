@@ -6,6 +6,8 @@
     flex-direction: row;
     justify-content: flex-start;
     place-items: center;
+    position: relative;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 900px) {
