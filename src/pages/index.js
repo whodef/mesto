@@ -103,27 +103,6 @@ formSelector.forEach(item => {
     formValidators[item.name].enableValidation();
 });
 
-// // Получение начальных карточек и данных о пользователе с сервера
-// Promise.all([api.getUserData(), api.getCards()])
-//     .then(([data, cards]) => {
-//         // Получение данных о пользователе
-//         userInfo.setUserInfo(data.name, data.about);
-//         userInfo.setUserAvatar(data.avatar);
-//         userInfo.setUserId(data._id);
-//
-//         // Создаётся экземпляр класса Section
-//         const {cardListSection} = cardConfig;
-//         const cardList = new Section(
-//             {
-//                 items: cards,
-//                 renderer: createCard
-//             },
-//             cardListSection
-//         );
-//         cardList.render();
-//     })
-//     .catch(err => console.log(`Ошибка при загрузке данных с сервера: ${err.status}`))
-
 changeProfileButton.addEventListener('click', () => {
     const {name, about} = userInfo.getUserInfo();
     const {userNameInput, userAboutInput} = profilePopupConfig;
