@@ -9,7 +9,8 @@ import PopupWithSubmit from "../components/PopupWithSubmit.js"
 import UserInfo from "../components/UserInfo.js";
 import {
     formConfig,
-    initialCards,
+    apiAddress,
+    apiToken,
     cardConfig,
     overlayWithImageConfig,
     newCardPopupConfig,
@@ -19,6 +20,8 @@ import {
     addCardButton
 } from '../utils/constants.js';
 
+const formValidators = {};
+
 const api = new Api({
     url: 'https://mesto.nomoreparties.co/v1/cohort-25',
     headers: {
@@ -26,9 +29,6 @@ const api = new Api({
         'Content-Type': 'application/json'
     },
 });
-
-
-const formValidators = {};
 
 const {overlayImageSelector} = overlayWithImageConfig;
 const imagePopup = new PopupWithImage(overlayImageSelector);
@@ -39,17 +39,27 @@ const createCard = (data) => {
     return card.constructCard();
 }
 
-// Отрисовка списка карточек
-const {cardTemplate, cardListSection} = cardConfig;
-const cardList = new Section({
-    items: initialCards,
-    renderer: (item) => {
-        const cardElement = createCard(item);
-        cardList.addItem(cardElement);
-    }
-}, cardListSection);
 
-cardList.render();
+// TODO: Отрисовка списка карточек
+const {cardTemplate, cardListSection} = cardConfig;
+
+api.getCards()
+    .then((data) => {
+        console.log(data);
+        const cardList = new Section({
+                items: data,
+                renderer: (item) => {
+                    console.log(item);
+                    const cardElement = createCard(item);
+                    cardList.addItem(cardElement);
+                }
+            }, cardListSection
+        );
+        cardList.render();
+    })
+    .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+    });
 
 // Добавление новой карточки
 const {newCardOverlaySelector} = newCardPopupConfig;
@@ -58,15 +68,21 @@ const newCardPopup = new PopupWithForm(newCardOverlaySelector, (inputValues) => 
         name: inputValues['input-name-card'],
         link: inputValues['input-image-url']
     };
-    cardList.addItem(createCard(data));
+    apiGetCard.addItem(createCard(data));
     newCardPopup.close();
 });
 
 // Создание UserInfo
-const {userName, userAbout} = profileConfig;
-const userInfo = new UserInfo(userName, userAbout);
+const userInfo = new UserInfo(profileConfig);
 
-// Колбэк функция обновления аватара
+// отображение информации о пользователе
+api.getUserData()
+    .then((data) => {
+        userInfo.setUserInfo(data);
+    })
+    .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+    });
 
 
 // Всплывающее окно редактирования профиля
@@ -86,6 +102,27 @@ formSelector.forEach(item => {
     formValidators[item.name] = new FormValidator(item, formConfig);
     formValidators[item.name].enableValidation();
 });
+
+// // Получение начальных карточек и данных о пользователе с сервера
+// Promise.all([api.getUserData(), api.getCards()])
+//     .then(([data, cards]) => {
+//         // Получение данных о пользователе
+//         userInfo.setUserInfo(data.name, data.about);
+//         userInfo.setUserAvatar(data.avatar);
+//         userInfo.setUserId(data._id);
+//
+//         // Создаётся экземпляр класса Section
+//         const {cardListSection} = cardConfig;
+//         const cardList = new Section(
+//             {
+//                 items: cards,
+//                 renderer: createCard
+//             },
+//             cardListSection
+//         );
+//         cardList.render();
+//     })
+//     .catch(err => console.log(`Ошибка при загрузке данных с сервера: ${err.status}`))
 
 changeProfileButton.addEventListener('click', () => {
     const {name, about} = userInfo.getUserInfo();

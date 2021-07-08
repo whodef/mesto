@@ -1,4 +1,5 @@
 export default class Section {
+    _id;
     _items;
     _renderer;
     _containerSelector;
@@ -14,6 +15,14 @@ export default class Section {
     }
 
     render() {
-        this._items.forEach(item => this._renderer(item));
+        this._items.forEach(item => {
+            this._renderer({
+                name: item.name,
+                link: item.link,
+                _id: item._id,
+                owner: item.owner,
+                likes: item.likes
+            });
+        })
     }
 }

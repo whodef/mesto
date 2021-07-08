@@ -4,7 +4,7 @@ export default class PopupWithSubmit extends Popup {
     _popupSelector;
     _submitHandler;
 
-    constructor({ popupSelector, submitHandler }) {
+    constructor({popupSelector, submitHandler}) {
         super(popupSelector);
         this._submitHandler = submitHandler;
     }

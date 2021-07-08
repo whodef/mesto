@@ -4,6 +4,7 @@ import {formConfig} from "../utils/constants.js";
 export default class PopupWithForm extends Popup {
     _form;
     _formValues;
+    _submitButton;
 
     constructor(popupSelector, onSubmit) {
         super(popupSelector);
@@ -27,6 +28,12 @@ export default class PopupWithForm extends Popup {
     _formSubmitHandler(e) {
         e.preventDefault();
         this._onSubmit(this._getInputValues());
+    }
+
+    renderLoading(isLoading) {
+        const {buttonSelector} = formConfig;
+        this._submitButton = this._form.querySelector(buttonSelector);
+        isLoading ? this._submitButton.textContent = 'Сохранение...' : this._submitButton.textContent = 'Сохранить';
     }
 
     close() {
