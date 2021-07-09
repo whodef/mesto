@@ -7,7 +7,7 @@ export default class Api {
         this._mandatory_headers = options.headers;
     }
 
-    _error(res) {
+    _checkRes(res) {
         if (res.ok) {
             return res.json();
         }
@@ -18,14 +18,16 @@ export default class Api {
         return fetch(`${this._api_prefix}/users/me`, {
             method: 'GET',
             headers: this._mandatory_headers
-        }).then(this._error);
+        })
+            .then(this._checkRes);
     }
 
     getCards() {
         return fetch(`${this._api_prefix}/cards`, {
             method: 'GET',
             headers: this._mandatory_headers
-        }).then(this._error);
+        })
+            .then(this._checkRes);
     }
 
     setUserAvatar(link) {
@@ -35,18 +37,20 @@ export default class Api {
             body: JSON.stringify({
                 avatar: link
             })
-        }).then(this._error);
+        })
+            .then(this._checkRes);
     }
 
-    setProfileInfo(name, about) {
+    setProfileInfo(name, caption) {
         return fetch(`${this._api_prefix}/users/me`, {
             method: 'PATCH',
             headers: this._mandatory_headers,
             body: JSON.stringify({
                 name: name,
-                about: about
+                about: caption
             })
-        }).then(this._error);
+        })
+            .then(this._checkRes);
     }
 
     addCard(name, link) {
@@ -57,27 +61,31 @@ export default class Api {
                 name: name,
                 link: link
             })
-        }).then(this._error);
+        })
+            .then(this._checkRes);
     }
 
     likeCard(cardId) {
         return fetch(`${this._api_prefix}/cards/likes/${cardId}`, {
             method: 'PUT',
             headers: this._mandatory_headers
-        }).then(this._error);
+        })
+            .then(this._checkRes);
     }
 
     removeLikeFromCard(cardId) {
         return fetch(`${this._api_prefix}/cards/likes/${cardId}`, {
             method: 'DELETE',
             headers: this._mandatory_headers
-        }).then(this._error);
+        })
+            .then(this._checkRes);
     }
 
     deleteCard(cardId) {
         return fetch(`${this._api_prefix}/cards/${cardId}`, {
             method: 'DELETE',
             headers: this._mandatory_headers
-        }).then(this._error);
+        })
+            .then(this._checkRes);
     }
 }

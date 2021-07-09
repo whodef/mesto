@@ -1,7 +1,7 @@
 import {cardConfig} from '../utils/constants.js';
-import {apiToken} from '../utils/constants';
 
 export default class Card {
+    _myId;
     _name;
     _link;
     _cardWrapper;
@@ -10,26 +10,19 @@ export default class Card {
     _item;
     _cardImage;
     _owner;
-    _isOwner;
     _likes;
-    _deleteCard;
-    _addLike;
-    _removeLike;
-    _currentUser;
 
-    constructor(data, cardTemplate, handleCardClick) {
+    constructor(data, cardTemplate, handleCardClick, handleCardLike, handleCardDelete) {
+        this._myId = data['myId'];
         this._id = data._id;
         this._name = data.name;
         this._link = data.link;
         this._owner = data.owner;
         this._likes = data.likes;
-        this._isOwner = false;
-
         this._cardWrapper = cardTemplate;
         this._handleCardClick = handleCardClick;
-        // this._deleteCard = deleteCard;
-        // this._addLike = addLike;
-        // this._removeLike = removeLike;
+        this._handleCardLike = handleCardLike;
+        this._handleCardDelete = handleCardDelete;
     }
 
     _getTemplate = () => {
@@ -49,45 +42,34 @@ export default class Card {
     _handleLike = () => {
         const {cardLikeButtonActive} = cardConfig;
         this._likeButton.classList.toggle(cardLikeButtonActive);
-        this._isLiked = !this._isLiked
-        this._likeButton.blur();
+
+        const isLike = this._likeButton.classList.contains(cardLikeButtonActive);
+        this._handleCardLike(this._id, isLike).then((res) => {
+            this._counter.textContent = res.likes.length;
+        })
+            .catch(err => console.log(err));
     }
 
-
-    _handleRemove = () => {
-        this._item.remove();
+    handleRemove = () => {
+        this._handleCardDelete(this);
     }
 
     _showBin() {
         const {cardRemoveButton} = cardConfig;
-        this._handleRemove = this._item.querySelector(cardRemoveButton);
-        if (this._owner === apiToken) {
-            this._handleRemove.classList.toggle(cardRemoveButton);
+        const button = this._item.querySelector(cardRemoveButton);
+        if (this._owner._id !== this._myId) {
+            button.remove();
         }
-    }
-
-    _showLike() {
-        this._likes.forEach(element => {
-            if (element._id === apiToken) {
-                this._handleLike();
-            }
-        });
     }
 
     _setEventListeners = () => {
         const {cardRemoveButton, cardLikeButton} = cardConfig;
-        this._item.querySelector(cardRemoveButton).addEventListener('click', this._handleRemove);
-
         this._likeButton = this._item.querySelector(cardLikeButton);
 
-        this._likeButton.addEventListener('click', this._handleLike);
         this._cardImage.addEventListener('click', this._handleOnClick);
+        this._likeButton.addEventListener('click', this._handleLike);
+        this._item.querySelector(cardRemoveButton).addEventListener('click', this.handleRemove);
 
-    }
-
-    setCurrentUser(id) {
-        this._currentUser = id;
-        if (id === this._owner) this._isOwner = true;
     }
 
     constructCard = () => {
@@ -109,19 +91,15 @@ export default class Card {
         this._counter.textContent = this._likes.length;
 
         if (this._likes.length > 0) {
-            this._likeButton.classList.add(cardLikeButtonActive)
+            this._likes.forEach(like => {
+                if (like._id === this._myId) {
+                    this._likeButton.classList.add(cardLikeButtonActive);
+                    return true;
+                }
+            });
         }
-
-        // Показ элементов карточки
-        this._showLike();
         this._showBin();
 
-        // Возврат карточки
         return this._item;
-    }
-
-    deleteCard() {
-        this._item.remove();
-        this._item = null;
     }
 }

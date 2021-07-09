@@ -10,8 +10,8 @@ export default class Section {
         this._containerSelector = document.querySelector(containerSelector);
     }
 
-    addItem(item) {
-        this._containerSelector.prepend(item);
+    addItem(item, isPrepend) {
+        isPrepend ? this._containerSelector.prepend(item) : this._containerSelector.append(item);
     }
 
     render() {

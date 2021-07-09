@@ -1,4 +1,4 @@
-import { overlayConfig } from "../utils/constants.js";
+import {overlayConfig} from "../utils/constants.js";
 
 export default class Popup {
     _overlay;
@@ -6,7 +6,7 @@ export default class Popup {
     _closeButton;
 
     constructor(popupSelector) {
-        const { overlayOpened, overlayCloseButton } = overlayConfig;
+        const {overlayOpened, overlayCloseButton} = overlayConfig;
         this._overlay = document.querySelector(popupSelector);
         this._openedClass = overlayOpened;
         this._closeButton = this._overlay.querySelector(overlayCloseButton);
@@ -38,5 +38,9 @@ export default class Popup {
     setEventListeners() {
         this._closeButton.addEventListener('click', () => this.close());
         this._overlay.addEventListener('mousedown', (e) => this._handleOverlayClose(e));
+    }
+
+    get overlay() {
+        return this._overlay;
     }
 }

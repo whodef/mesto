@@ -38,6 +38,12 @@ export const formConfig = {
     errorMode: 'overlay__form-error_visible'
 };
 
+export const avatarPopupConfig = {
+    popupSelector: '#overlay-avatar',
+    formAvatar: document.querySelector('.overlay__form[name = form-avatar]'),
+    urlInput: document.querySelector('.overlay__form-input[name = input-avatar]'),
+}
+
 export const profilePopupConfig = {
     profileOverlaySelector: '#change-profile-overlay',
     profileForm: document.querySelector('.overlay__form[name = overlay-form-profile]'),
@@ -50,7 +56,11 @@ export const profileConfig = {
     userCaptionSelector: '.profile__description',
     userAvatarSelector: '.profile__image'
 }
-// ?
+
+export const confirmPopupConfig = {
+    popupSelector: '#overlay-with-submit',
+}
+
 export const editAvatarPopupConfig = {
     popupSelector: '#overlay-avatar',
     popupCloseBtnSelector: '.overlay__close-button',

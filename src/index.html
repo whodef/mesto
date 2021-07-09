@@ -110,30 +110,28 @@
         </fieldset>
     </div>
 
-    <!-- TODO: Улучшенный UX для принятия решения-->
+    <!-- Улучшенный UX для принятия решения-->
     <div class="overlay" id="overlay-with-submit">
-        <fieldset class="overlay__container">
-            <form class="overlay__form" id="form-submit" action="#" novalidate>
-                <button class="overlay__close-button" type="button" id="popup-submit-close"></button>
+        <fieldset class="overlay__container overlay__container_confirm">
+            <button class="overlay__close-button" type="button" id="popup-submit-close"></button>
+            <form class="overlay__form" id="form-submit" name="overlay-confirm" action="#" novalidate>
                 <h2 class="overlay__title">Вы уверены?</h2>
-                <button class="overlay__save-button" id="save" type="submit">Да</button>
+                <button class="overlay__save-button overlay__save-button_confirm" id="save" type="submit">Да</button>
             </form>
         </fieldset>
     </div>
 
-    <!-- TODO: Всплывающее окно для обновления аватара в профиле -->
+    <!-- Всплывающее окно для обновления аватара в профиле -->
     <div class="overlay" id="overlay-avatar">
-        <fieldset class="overlay__container">
+        <fieldset class="overlay__container overlay__container_avatar">
             <button class="overlay__close-button" type="button" id="popup-avatar-close"></button>
-            <form class="overlay__form" action="#" id="form-avatar" novalidate>
+            <form class="overlay__form" action="#" id="form-avatar" name="form-avatar" novalidate>
                 <div class="overlay__form-input-set">
                     <h2 class="overlay__title">Обновить аватар</h2>
-                    <fieldset class="overlay__container">
-                        <input class="overlay__form-input overlay__form-input_type_ext" id="avatar-url-input" type="url"
-                               value="" name="link" placeholder="Ссылка на картинку" required>
-                        <span class="overlay__form-error overlay__form-error_visible" id="url-input-error"></span>
-                        <button class="overlay__save-button" type="submit">Сохранить</button>
-                    </fieldset>
+                    <input class="overlay__form-input overlay__form-input_type_ext" id="avatar-url-input"
+                           name="input-avatar" type="url" value="" placeholder="Ссылка на картинку" required>
+                    <span class="overlay__form-error overlay__form-error_visible" id="avatar-url-input-error"></span>
+                    <button class="overlay__save-button overlay__save-button_avatar" type="submit">Сохранить</button>
                 </div>
             </form>
         </fieldset>

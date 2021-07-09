@@ -9,13 +9,14 @@ import PopupWithSubmit from "../components/PopupWithSubmit.js"
 import UserInfo from "../components/UserInfo.js";
 import {
     formConfig,
-    apiAddress,
-    apiToken,
     cardConfig,
+    confirmPopupConfig,
     overlayWithImageConfig,
     newCardPopupConfig,
+    avatarPopupConfig,
     profilePopupConfig,
     profileConfig,
+    changeProfileAvatar,
     changeProfileButton,
     addCardButton
 } from '../utils/constants.js';
@@ -30,26 +31,63 @@ const api = new Api({
     },
 });
 
-const {overlayImageSelector} = overlayWithImageConfig;
-const imagePopup = new PopupWithImage(overlayImageSelector);
+// Создание UserInfo
+const userInfo = new UserInfo(profileConfig);
+
+// Отображение информации о пользователе
+api.getUserData()
+    .then((data) => {
+        userInfo.setUserInfo(data);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 
 // Функция создания карточки
+const {overlayImageSelector} = overlayWithImageConfig;
+
+const imagePopup = new PopupWithImage(overlayImageSelector);
+
 const createCard = (data) => {
-    const card = new Card(data, cardTemplate, item => imagePopup.open(item));
+    data['myId'] = userInfo.getUserInfo()['id'];
+    const card = new Card(data, cardTemplate,
+        item => imagePopup.open(item),
+        (cardId, isLike) => {
+            if (isLike) {
+                return api.likeCard(cardId);
+            } else {
+                return api.removeLikeFromCard(cardId);
+            }
+        },
+        card => {
+            const {popupSelector} = confirmPopupConfig;
+            const confirmPopup = new PopupWithSubmit(popupSelector, () => {
+                return api.deleteCard(card._id)
+                    .then(() => {
+                        card._item.remove();
+                        confirmPopup.close();
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            });
+            confirmPopup.setEventListeners();
+            confirmPopup.open();
+        }
+    );
     return card.constructCard();
-}
+};
 
-
-// TODO: Отрисовка списка карточек
+// Отрисовка списка карточек
 const {cardTemplate, cardListSection} = cardConfig;
+
+let cardList;
 
 api.getCards()
     .then((data) => {
-        console.log(data);
-        const cardList = new Section({
+        cardList = new Section({
                 items: data,
                 renderer: (item) => {
-                    console.log(item);
                     const cardElement = createCard(item);
                     cardList.addItem(cardElement);
                 }
@@ -58,57 +96,75 @@ api.getCards()
         cardList.render();
     })
     .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
+        console.log(err);
     });
+
+// Всплывающее окно редактирования аватара в профиле
+const avatarPopup = new PopupWithForm(avatarPopupConfig.popupSelector, (inputValues) => {
+    avatarPopup.renderLoading(true);
+    api.setUserAvatar(inputValues['input-avatar'])
+        .then(data => {
+            userInfo.setUserInfo(data);
+            avatarPopup.close();
+            avatarPopup.renderLoading(false);
+        })
+        .catch(err => console.error(err));
+});
+
+// Всплывающее окно редактирования профиля
+const profilePopup = new PopupWithForm(profilePopupConfig.profileOverlaySelector, (inputValues) => {
+    profilePopup.renderLoading(true);
+    api.setProfileInfo(
+        inputValues['input-name-profile'],
+        inputValues['input-description-profile']
+    )
+        .then(data => {
+            userInfo.setUserInfo(data);
+            profilePopup.close();
+            profilePopup.renderLoading(false);
+        })
+        .catch(err => console.error(err));
+});
 
 // Добавление новой карточки
 const {newCardOverlaySelector} = newCardPopupConfig;
 const newCardPopup = new PopupWithForm(newCardOverlaySelector, (inputValues) => {
-    const data = {
-        name: inputValues['input-name-card'],
-        link: inputValues['input-image-url']
-    };
-    apiGetCard.addItem(createCard(data));
-    newCardPopup.close();
-});
-
-// Создание UserInfo
-const userInfo = new UserInfo(profileConfig);
-
-// отображение информации о пользователе
-api.getUserData()
-    .then((data) => {
-        userInfo.setUserInfo(data);
-    })
-    .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-    });
-
-
-// Всплывающее окно редактирования профиля
-const {profileOverlaySelector} = profilePopupConfig;
-const profilePopup = new PopupWithForm(profileOverlaySelector, (inputValues) => {
-    const data = {
-        name: inputValues['input-name-profile'],
-        description: inputValues['input-description-profile']
-    };
-    userInfo.setUserInfo(data);
-    profilePopup.close();
+    api.addCard(
+        inputValues['input-name-card'],
+        inputValues['input-image-url']
+    )
+        .then(data => {
+            cardList.addItem(createCard(data), true);
+            newCardPopup.close();
+        })
+        .catch(err => console.error(err));
 });
 
 // Валидация форм
-const formSelector = document.querySelectorAll(formConfig['formSelector']);
-formSelector.forEach(item => {
+const forms = document.querySelectorAll(formConfig['formSelector']);
+forms.forEach(item => {
     formValidators[item.name] = new FormValidator(item, formConfig);
     formValidators[item.name].enableValidation();
 });
 
+// Редактирование аватара пользователя
+changeProfileAvatar.addEventListener('click', () => {
+    const {avatar} = userInfo.getUserInfo();
+    const {urlInput} = avatarPopupConfig;
+
+    urlInput.setAttribute('value', avatar);
+
+    formValidators['form-avatar'].cleanFormValidation();
+    avatarPopup.open();
+});
+
+// Редактирование пользовательской информации "О себе"
 changeProfileButton.addEventListener('click', () => {
-    const {name, about} = userInfo.getUserInfo();
+    const {name, caption} = userInfo.getUserInfo();
     const {userNameInput, userAboutInput} = profilePopupConfig;
 
     userNameInput.setAttribute('value', name);
-    userAboutInput.setAttribute('value', about);
+    userAboutInput.setAttribute('value', caption);
 
     formValidators['overlay-form-profile'].cleanFormValidation();
     profilePopup.open();
@@ -120,6 +176,8 @@ addCardButton.addEventListener('click', () => {
 });
 
 imagePopup.setEventListeners();
+
+avatarPopup.setEventListeners();
 
 profilePopup.setEventListeners();
 
