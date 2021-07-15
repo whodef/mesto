@@ -20,7 +20,7 @@
 .card__description-like-container{align-items:center;display:flex;flex-direction:column}
 .card__description{align-items:center;background-color:#fff;border-radius:0 0 10px 10px;box-sizing:border-box;display:flex;height:79px;justify-content:space-between;margin:0;padding:25px 20px 26px 21px;width:282px}
 .card__like-counter{font-size:13px;font-weight:400;line-height:1.21;margin-top:3px}
-.card__description-title{color:#000;font-family:Inter,Arial,sans-serif;font-size:24px;font-style:normal;font-weight:900;line-height:29px;margin:0;overflow:hidden;padding:0;text-overflow:ellipsis;white-space:nowrap}
+.card__description-title{color:#000;font-family:Inter,Arial,sans-serif;font-size:24px;font-style:normal;font-weight:900;line-height:29px;margin:0;overflow:hidden;padding:0 4px 0 0;text-overflow:ellipsis;white-space:nowrap}
 .card__image{border-radius:10px 10px 0 0;height:282px;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;transition:opacity .1s ease-in-out;width:282px}.card__image:hover{opacity:.8;transition:border .1s ease-in-out}
 .card__item{display:flex;flex-direction:column;max-width:282px;position:relative}
 .card__like-button{background:url(87ed371465c7a6a1cd01.svg) transparent no-repeat;background-size:19px 17px;border:none;cursor:pointer;height:17px;margin:0;outline:none;width:19px}.card__like-button:hover{opacity:.5;transition:border .1s ease-in-out}
