@@ -15,4 +15,5 @@
 * JavaScript
   * Vanilla JS ✨
 
-### Ссылка на готовый проект [МЕСТО](https://whodef.github.io/mesto/)
+### [<img src="https://thumbs.gfycat.com/CheerySeparateGoldeneye-size_restricted.gif" width="75" height="75">](https://whodef.github.io/mesto/)
+### [МЕСТО](https://whodef.github.io/mesto/) 
