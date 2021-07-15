@@ -1,6 +1,3 @@
-export const apiAddress = 'https://mesto.nomoreparties.co/v1/cohort-25';
-export const apiToken = '8e17de69-5c22-4aaf-b9e8-673eda086f85';
-
 export const overlayConfig = {
     overlayOpened: 'overlay_open',
     overlayCloseButton: '.overlay__close-button',
@@ -58,7 +55,7 @@ export const profileConfig = {
 }
 
 export const confirmPopupConfig = {
-    popupSelector: '#overlay-with-submit',
+    confirmPopupSelector: '#overlay-with-submit',
 }
 
 export const editAvatarPopupConfig = {

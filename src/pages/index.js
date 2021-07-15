@@ -5,23 +5,20 @@ import Card from '../components/Card.js';
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import PopupWithSubmit from "../components/PopupWithSubmit.js"
 import UserInfo from "../components/UserInfo.js";
 import {
-    formConfig,
-    cardConfig,
-    confirmPopupConfig,
-    overlayWithImageConfig,
-    newCardPopupConfig,
+    addCardButton,
     avatarPopupConfig,
-    profilePopupConfig,
-    profileConfig,
+    cardConfig,
     changeProfileAvatar,
     changeProfileButton,
-    addCardButton
+    confirmPopupConfig,
+    formConfig,
+    newCardPopupConfig,
+    overlayWithImageConfig,
+    profileConfig,
+    profilePopupConfig
 } from '../utils/constants.js';
-
-const formValidators = {};
 
 const api = new Api({
     url: 'https://mesto.nomoreparties.co/v1/cohort-25',
@@ -31,62 +28,57 @@ const api = new Api({
     },
 });
 
+// Для валидации форм
+const formValidators = {};
+
 // Создание UserInfo
 const userInfo = new UserInfo(profileConfig);
 
-// Отображение информации о пользователе
-api.getUserData()
-    .then((data) => {
-        userInfo.setUserInfo(data);
-    })
-    .catch((err) => {
-        console.log(err);
-    });
-
-// Функция создания карточки
+// Для функции создания карточки
 const {overlayImageSelector} = overlayWithImageConfig;
-
 const imagePopup = new PopupWithImage(overlayImageSelector);
 
+// Карточки, собственно
 const createCard = (data) => {
-    data['myId'] = userInfo.getUserInfo()['id'];
+    data['authUserID'] = userInfo.getUserInfo()['id'];
     const card = new Card(data, cardTemplate,
-        item => imagePopup.open(item),
-        (cardId, isLike) => {
-            if (isLike) {
-                return api.likeCard(cardId);
-            } else {
-                return api.removeLikeFromCard(cardId);
-            }
+        card => imagePopup.open(card),
+        (card, isLike) => {
+            const responsePromise = isLike ? api.removeLikeFromCard(card.id) : api.likeCard(card.id);
+
+            responsePromise.then((res) => {
+                card.updateLikes(res.likes);
+            })
+                .catch(err => console.error(err));
         },
         card => {
-            const {popupSelector} = confirmPopupConfig;
-            const confirmPopup = new PopupWithSubmit(popupSelector, () => {
-                return api.deleteCard(card._id)
+            const {confirmPopupSelector} = confirmPopupConfig;
+            const confirmPopup = new PopupWithForm(confirmPopupSelector, () => {
+                return api.deleteCard(card.id)
                     .then(() => {
-                        card._item.remove();
+                        card.delete();
                         confirmPopup.close();
                     })
                     .catch((err) => {
-                        console.log(err);
+                        console.error(err);
                     });
             });
-            confirmPopup.setEventListeners();
             confirmPopup.open();
         }
     );
-    return card.constructCard();
+    return card.make();
 };
 
 // Отрисовка списка карточек
 const {cardTemplate, cardListSection} = cardConfig;
-
 let cardList;
 
-api.getCards()
-    .then((data) => {
+// Отправка запросов, на получение данных профиля и данных карточек, выполняется одновременно
+Promise.all([api.getUserData(), api.getCards()])
+    .then(([user, cards]) => {
+        userInfo.setUserInfo(user);
         cardList = new Section({
-                items: data,
+                items: cards,
                 renderer: (item) => {
                     const cardElement = createCard(item);
                     cardList.addItem(cardElement);
@@ -95,9 +87,7 @@ api.getCards()
         );
         cardList.render();
     })
-    .catch((err) => {
-        console.log(err);
-    });
+    .catch(err => console.error(err));
 
 // Всплывающее окно редактирования аватара в профиле
 const avatarPopup = new PopupWithForm(avatarPopupConfig.popupSelector, (inputValues) => {
@@ -174,11 +164,3 @@ addCardButton.addEventListener('click', () => {
     formValidators['overlay-form-card'].cleanFormValidation();
     newCardPopup.open();
 });
-
-imagePopup.setEventListeners();
-
-avatarPopup.setEventListeners();
-
-profilePopup.setEventListeners();
-
-newCardPopup.setEventListeners();

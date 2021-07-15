@@ -11,6 +11,11 @@ export default class Popup {
         this._openedClass = overlayOpened;
         this._closeButton = this._overlay.querySelector(overlayCloseButton);
         this._handleEscClose = this._handleEscClose.bind(this);
+        this.#setEventListeners();
+    }
+
+    get overlay() {
+        return this._overlay;
     }
 
     _handleEscClose(e) {
@@ -35,12 +40,8 @@ export default class Popup {
         this._overlay.classList.remove(this._openedClass);
     }
 
-    setEventListeners() {
+    #setEventListeners() {
         this._closeButton.addEventListener('click', () => this.close());
         this._overlay.addEventListener('mousedown', (e) => this._handleOverlayClose(e));
-    }
-
-    get overlay() {
-        return this._overlay;
     }
 }

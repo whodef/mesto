@@ -1,105 +1,107 @@
 import {cardConfig} from '../utils/constants.js';
 
 export default class Card {
-    _myId;
-    _name;
-    _link;
-    _cardWrapper;
-    _handleCardClick;
-    _likeButton;
-    _item;
-    _cardImage;
-    _owner;
-    _likes;
+    #authUserID;
+    #cardClickHandler;
+    #cardDeleteHandler;
+    #cardLikeHandler;
+    #domNode;
+    #id;
+    #likeButton;
+    #likes;
+    #link;
+    #name;
+    #owner;
 
     constructor(data, cardTemplate, handleCardClick, handleCardLike, handleCardDelete) {
-        this._myId = data['myId'];
-        this._id = data._id;
-        this._name = data.name;
-        this._link = data.link;
-        this._owner = data.owner;
-        this._likes = data.likes;
-        this._cardWrapper = cardTemplate;
-        this._handleCardClick = handleCardClick;
-        this._handleCardLike = handleCardLike;
-        this._handleCardDelete = handleCardDelete;
-    }
-
-    _getTemplate = () => {
         const {cardListItem} = cardConfig;
-        return document.querySelector(this._cardWrapper).content.querySelector(cardListItem).cloneNode(true);
+        this.#domNode = document.querySelector(cardTemplate).content.querySelector(cardListItem).cloneNode(true);
+
+        this.#authUserID = data['authUserID'];
+        this.#id = data._id;
+        this.#name = data.name;
+        this.#link = data.link;
+        this.#owner = data.owner;
+        this.#likes = data.likes;
+
+        this.#cardClickHandler = handleCardClick;
+        this.#cardLikeHandler = handleCardLike;
+        this.#cardDeleteHandler = handleCardDelete;
     }
 
-    _handleOnClick = () => {
+    get id() {
+        return this.#id;
+    }
+
+    #cardImageClickListener = () => {
         const card = {
-            alt: this._name,
-            caption: this._name,
-            link: this._link
+            alt: this.#name,
+            caption: this.#name,
+            link: this.#link
         }
-        this._handleCardClick(card);
+        this.#cardClickHandler(card);
     }
 
-    _handleLike = () => {
+    #cardLikeButtonClickListener = () => {
         const {cardLikeButtonActive} = cardConfig;
-        this._likeButton.classList.toggle(cardLikeButtonActive);
-
-        const isLike = this._likeButton.classList.contains(cardLikeButtonActive);
-        this._handleCardLike(this._id, isLike).then((res) => {
-            this._counter.textContent = res.likes.length;
-        })
-            .catch(err => console.log(err));
+        const isLike = this.#likeButton.classList.contains(cardLikeButtonActive);
+        this.#cardLikeHandler(this, isLike);
     }
 
-    handleRemove = () => {
-        this._handleCardDelete(this);
+    #cardRemoveListener = () => {
+        this.#cardDeleteHandler(this);
     }
 
-    _showBin() {
-        const {cardRemoveButton} = cardConfig;
-        const button = this._item.querySelector(cardRemoveButton);
-        if (this._owner._id !== this._myId) {
-            button.remove();
+    #showBin(cardRemoveButtonNode) {
+        if (this.#owner._id !== this.#authUserID) {
+            cardRemoveButtonNode.remove();
         }
     }
 
-    _setEventListeners = () => {
-        const {cardRemoveButton, cardLikeButton} = cardConfig;
-        this._likeButton = this._item.querySelector(cardLikeButton);
-
-        this._cardImage.addEventListener('click', this._handleOnClick);
-        this._likeButton.addEventListener('click', this._handleLike);
-        this._item.querySelector(cardRemoveButton).addEventListener('click', this.handleRemove);
-
+    #setEventListeners = (cardImageNode, cardRemoveButtonNode) => {
+        cardImageNode.addEventListener('click', this.#cardImageClickListener);
+        cardRemoveButtonNode.addEventListener('click', this.#cardRemoveListener);
+        this.#likeButton.addEventListener('click', this.#cardLikeButtonClickListener);
     }
 
-    constructCard = () => {
-        const {cardImage, cardTitle, cardLikeButton, likeCounter, cardLikeButtonActive} = cardConfig;
+    #renderLikesElement() {
+        const {likeCounter, cardLikeButtonActive} = cardConfig;
+        this._counter = this.#domNode.querySelector(likeCounter);
+        this._counter.textContent = this.#likes.length;
 
-        this._item = this._getTemplate();
+        this.#likeButton.classList.remove(cardLikeButtonActive);
+        this.#likes.forEach(like => {
+            if (like._id === this.#authUserID) {
+                this.#likeButton.classList.add(cardLikeButtonActive);
+            }
+        });
+    }
 
-        this._cardImage = this._item.querySelector(cardImage);
-        this._cardImage.src = this._link;
-        this._cardImage.alt = this._name;
+    updateLikes = likesList => {
+        this.#likes = likesList;
+        this.#renderLikesElement();
+    };
 
-        this._setEventListeners();
+    delete = () => {
+        this.#domNode.remove();
+    }
 
-        this._item.querySelector(cardTitle).textContent = this._name;
-        this._likeButton = this._item.querySelector(cardLikeButton);
+    make = () => {
+        const {cardImage, cardTitle, cardLikeButton, cardRemoveButton} = cardConfig;
+        const cardImageNode = this.#domNode.querySelector(cardImage);
+        cardImageNode.src = this.#link;
+        cardImageNode.alt = this.#name;
 
-        // Счётчик лайков
-        this._counter = this._item.querySelector(likeCounter);
-        this._counter.textContent = this._likes.length;
+        this.#likeButton = this.#domNode.querySelector(cardLikeButton);
+        this.#domNode.querySelector(cardTitle).textContent = this.#name;
 
-        if (this._likes.length > 0) {
-            this._likes.forEach(like => {
-                if (like._id === this._myId) {
-                    this._likeButton.classList.add(cardLikeButtonActive);
-                    return true;
-                }
-            });
-        }
-        this._showBin();
+        const cardRemoveButtonNode = this.#domNode.querySelector(cardRemoveButton);
+        this.#showBin(cardRemoveButtonNode);
 
-        return this._item;
+        this.#renderLikesElement();
+
+        this.#setEventListeners(cardImageNode, cardRemoveButtonNode);
+
+        return this.#domNode;
     }
 }

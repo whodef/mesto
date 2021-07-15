@@ -1,4 +1,8 @@
 export default class UserInfo {
+    _userNameElement;
+    _userCaptionElement;
+    _userAvatarElement;
+    _userId;
 
     constructor({userNameSelector, userCaptionSelector, userAvatarSelector}) {
         this._userNameElement = document.querySelector(userNameSelector);

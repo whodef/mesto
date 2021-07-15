@@ -1,6 +1,6 @@
 .card__description-title {
     margin: 0;
-    padding: 0;
+    padding: 0 4px 0 0;
     font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
     font-weight: 900;
