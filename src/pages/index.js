@@ -34,9 +34,17 @@ const formValidators = {};
 // Создание UserInfo
 const userInfo = new UserInfo(profileConfig);
 
+// Для всплывающего окна Confirm
+const {confirmPopupSelector} = confirmPopupConfig;
+const confirmPopup = new PopupWithForm(confirmPopupSelector);
+
 // Для функции создания карточки
 const {overlayImageSelector} = overlayWithImageConfig;
 const imagePopup = new PopupWithImage(overlayImageSelector);
+
+// Отрисовка списка карточек
+const {cardTemplate, cardListSection} = cardConfig;
+let cardList;
 
 // Карточки, собственно
 const createCard = (data) => {
@@ -52,8 +60,7 @@ const createCard = (data) => {
                 .catch(err => console.error(err));
         },
         card => {
-            const {confirmPopupSelector} = confirmPopupConfig;
-            const confirmPopup = new PopupWithForm(confirmPopupSelector, () => {
+            confirmPopup.setSubmitHandler(() => {
                 return api.deleteCard(card.id)
                     .then(() => {
                         card.delete();
@@ -68,10 +75,6 @@ const createCard = (data) => {
     );
     return card.make();
 };
-
-// Отрисовка списка карточек
-const {cardTemplate, cardListSection} = cardConfig;
-let cardList;
 
 // Отправка запросов, на получение данных профиля и данных карточек, выполняется одновременно
 Promise.all([api.getUserData(), api.getCards()])
