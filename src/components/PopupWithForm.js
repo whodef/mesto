@@ -2,47 +2,51 @@ import Popup from "./Popup.js";
 import {formConfig} from "../utils/constants.js";
 
 export default class PopupWithForm extends Popup {
-    #form;
-    #formValues;
-    #submitButton;
-    #inputList;
-    #submitHandler;
+    _form;
+    _formValues;
+    _submitButton;
+    _inputList;
+    _submitHandler;
 
     constructor(popupSelector, onSubmit) {
         super(popupSelector);
         const {formSelector, inputSelector, buttonSelector} = formConfig;
 
-        this.#form = super.overlay.querySelector(formSelector);
-        this.#inputList = this.#form.querySelectorAll(inputSelector);
-        this.#submitButton = this.#form.querySelector(buttonSelector);
-        this.#submitHandler = onSubmit;
-        this.#formValues = {};
+        this._form = super.overlay.querySelector(formSelector);
+        this._inputList = this._form.querySelectorAll(inputSelector);
+        this._submitButton = this._form.querySelector(buttonSelector);
+        this._submitHandler = onSubmit;
+        this._formValues = {};
 
-        this.#setEventListeners();
+        this._setEventListeners();
     }
 
-    #getInputValues() {
-        this.#inputList.forEach(input => {
-            this.#formValues[input.name] = input.value;
+    _getInputValues() {
+        this._inputList.forEach(input => {
+            this._formValues[input.name] = input.value;
         });
-        return this.#formValues;
+        return this._formValues;
     }
 
-    #formSubmitHandler(e) {
+    _formSubmitHandler(e) {
         e.preventDefault();
-        this.#submitHandler(this.#getInputValues());
+        this._submitHandler(this._getInputValues());
     }
 
-    #setEventListeners() {
-        this.#form.addEventListener('submit', (e) => this.#formSubmitHandler(e));
+    _setEventListeners() {
+        this._form.addEventListener('submit', (e) => this._formSubmitHandler(e));
     }
+
+    // setSubmitHandler(handler) {
+    //     this._submitHandler = handler;
+    // }
 
     renderLoading(isLoading) {
-        isLoading ? this.#submitButton.textContent = 'Сохранение...' : this.#submitButton.textContent = 'Сохранить';
+        isLoading ? this._submitButton.textContent = 'Сохранение...' : this._submitButton.textContent = 'Сохранить';
     }
 
     close() {
         super.close();
-        this.#form.reset();
+        this._form.reset();
     }
 }

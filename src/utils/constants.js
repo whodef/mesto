@@ -1,6 +1,6 @@
 export const overlayConfig = {
     overlayOpened: 'overlay_open',
-    overlayCloseButton: '.overlay__close-button',
+    overlayCloseButton: '.overlay__close-button'
 }
 
 export const cardConfig = {
@@ -23,7 +23,7 @@ export const newCardPopupConfig = {
 export const overlayWithImageConfig = {
     overlayImageSelector: '#image-overlay',
     imageOverlay: '.overlay__image',
-    imageCaption: '.overlay__image-caption',
+    imageCaption: '.overlay__image-caption'
 }
 
 export const formConfig = {
@@ -38,14 +38,14 @@ export const formConfig = {
 export const avatarPopupConfig = {
     popupSelector: '#overlay-avatar',
     formAvatar: document.querySelector('.overlay__form[name = form-avatar]'),
-    urlInput: document.querySelector('.overlay__form-input[name = input-avatar]'),
+    urlInput: document.querySelector('.overlay__form-input[name = input-avatar]')
 }
 
 export const profilePopupConfig = {
     profileOverlaySelector: '#change-profile-overlay',
     profileForm: document.querySelector('.overlay__form[name = overlay-form-profile]'),
     userNameInput: document.querySelector('.overlay__form-input[name = input-name-profile]'),
-    userAboutInput: document.querySelector('.overlay__form-input[name = input-description-profile]'),
+    userAboutInput: document.querySelector('.overlay__form-input[name = input-description-profile]')
 }
 
 export const profileConfig = {
@@ -55,7 +55,7 @@ export const profileConfig = {
 }
 
 export const confirmPopupConfig = {
-    confirmPopupSelector: '#overlay-with-submit',
+    confirmPopupSelector: '#overlay-with-submit'
 }
 
 export const editAvatarPopupConfig = {
@@ -71,30 +71,3 @@ export const changeProfileAvatar = document.querySelector('.profile__avatar-cont
 export const changeProfileButton = document.querySelector('.profile__change-button');
 
 export const addCardButton = document.querySelector('.profile__add-button');
-
-// export const initialCards = [
-//     {
-//         name: 'Архыз',
-//         link: 'https://images.unsplash.com/photo-1499621401321-83004ade2347?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2551&q=80'
-//     },
-//     {
-//         name: 'Челябинская область',
-//         link: 'https://images.unsplash.com/photo-1565881013382-810f846f7dc2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2167&q=80'
-//     },
-//     {
-//         name: 'Иваново',
-//         link: 'https://images.unsplash.com/photo-1601381960548-fd47eab39cbc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1242&q=80'
-//     },
-//     {
-//         name: 'Камчатка',
-//         link: 'https://images.unsplash.com/photo-1535557142533-b5e1cc6e2a5d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2601&q=80'
-//     },
-//     {
-//         name: 'Холмогорский район',
-//         link: 'https://images.unsplash.com/photo-1446506123797-f3e3eb4c092d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2551&q=80'
-//     },
-//     {
-//         name: 'Байкал',
-//         link: 'https://images.unsplash.com/photo-1516179993453-2fa0b77c8d69?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2167&q=80'
-//     }
-// ];

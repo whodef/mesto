@@ -1,13 +1,13 @@
 export default class Api {
-    #api_prefix;
-    #mandatory_headers;
+    _api_prefix;
+    _mandatory_headers;
 
     constructor(options) {
-        this.#api_prefix = options.url;
-        this.#mandatory_headers = options.headers;
+        this._api_prefix = options.url;
+        this._mandatory_headers = options.headers;
     }
 
-    static #checkRes(res) {
+    static _checkRes(res) {
         if (res.ok) {
             return res.json();
         }
@@ -15,77 +15,77 @@ export default class Api {
     }
 
     getUserData() {
-        return fetch(`${this.#api_prefix}/users/me`, {
+        return fetch(`${this._api_prefix}/users/me`, {
             method: 'GET',
-            headers: this.#mandatory_headers
+            headers: this._mandatory_headers
         })
-            .then(Api.#checkRes);
+            .then(Api._checkRes);
     }
 
     getCards() {
-        return fetch(`${this.#api_prefix}/cards`, {
+        return fetch(`${this._api_prefix}/cards`, {
             method: 'GET',
-            headers: this.#mandatory_headers
+            headers: this._mandatory_headers
         })
-            .then(Api.#checkRes);
+            .then(Api._checkRes);
     }
 
     setUserAvatar(link) {
-        return fetch(`${this.#api_prefix}/users/me/avatar`, {
+        return fetch(`${this._api_prefix}/users/me/avatar`, {
             method: 'PATCH',
-            headers: this.#mandatory_headers,
+            headers: this._mandatory_headers,
             body: JSON.stringify({
                 avatar: link
             })
         })
-            .then(Api.#checkRes);
+            .then(Api._checkRes);
     }
 
     setProfileInfo(name, caption) {
-        return fetch(`${this.#api_prefix}/users/me`, {
+        return fetch(`${this._api_prefix}/users/me`, {
             method: 'PATCH',
-            headers: this.#mandatory_headers,
+            headers: this._mandatory_headers,
             body: JSON.stringify({
                 name: name,
                 about: caption
             })
         })
-            .then(Api.#checkRes);
+            .then(Api._checkRes);
     }
 
     addCard(name, link) {
-        return fetch(`${this.#api_prefix}/cards`, {
+        return fetch(`${this._api_prefix}/cards`, {
             method: 'POST',
-            headers: this.#mandatory_headers,
+            headers: this._mandatory_headers,
             body: JSON.stringify({
                 name: name,
                 link: link
             })
         })
-            .then(Api.#checkRes);
+            .then(Api._checkRes);
     }
 
     likeCard(cardId) {
-        return fetch(`${this.#api_prefix}/cards/likes/${cardId}`, {
+        return fetch(`${this._api_prefix}/cards/likes/${cardId}`, {
             method: 'PUT',
-            headers: this.#mandatory_headers
+            headers: this._mandatory_headers
         })
-            .then(Api.#checkRes);
+            .then(Api._checkRes);
     }
 
     removeLikeFromCard(cardId) {
-        return fetch(`${this.#api_prefix}/cards/likes/${cardId}`, {
+        return fetch(`${this._api_prefix}/cards/likes/${cardId}`, {
             method: 'DELETE',
-            headers: this.#mandatory_headers
+            headers: this._mandatory_headers
         })
-            .then(Api.#checkRes);
+            .then(Api._checkRes);
     }
 
     deleteCard(cardId) {
-        return fetch(`${this.#api_prefix}/cards/${cardId}`, {
+        return fetch(`${this._api_prefix}/cards/${cardId}`, {
             method: 'DELETE',
-            headers: this.#mandatory_headers
+            headers: this._mandatory_headers
         })
-            .then(Api.#checkRes);
+            .then(Api._checkRes);
     }
 }
